@@ -1,5 +1,3 @@
-from macpath import curdir
-
 class MagicSquare():
        
     """Notation:
@@ -71,42 +69,84 @@ class MagicSquare():
         return square
     
     def testSemiMagic(self, square):
-        """Test if a square is Semi-Magic (lines but NOT diagonals)
+        """Test if a square is Semi-Magic
+        (lines equal, at least one diagonal NOT)
         Return Bool
         """
-        s = sum(square[0])
+        
+        values = []
         #rows
         for row in square:
-            if sum(row) != s:
-                return False        
+            values.append(sum(row))
         #cols
-        for x in xrange(len(square) - 1):
+        for x in xrange(len(square)):
             p = 0
             for row in square:
                 p += row[x]
-            if p != s:
-                return False
+            values.append(p)    
+            
+        # All rows and cols sums equal
+        if len(set(values)) != 1:
+            return False
+        
         #diagonals
-        #duplicates
+        x1, y1 = 0, 0
+        x2, y2 = len(square) -1, 0
+        d1, d2 = 0, 0
+        for _ in xrange(len(square)):
+            d1 += square[y1][x1]
+            d2 += square[y2][x2]
+            y1 += 1
+            x1 += 1
+            y2 += 1
+            x2 -= 1
+            
+        if (d1 in values) and (d2 in values):
+            return False
+        
+        #no duplicates
+        l = [number for row in square for number in row]
+        if len(l) != len(set(l)):
+            return False
         
         return True
     
     def testMagic(self, square):
-        """Test if a square is Magic (lines AND diagonals)
+        """Test if a square is Magic
+        (lines AND diagonals equal)
         Return bool"""
-        s = sum(square[0])
+        
+        values = []
         #rows
         for row in square:
-            if sum(row) != s:
-                return False        
+            values.append(sum(row))
         #cols
-        for x in xrange(len(square) - 1):
+        for x in xrange(len(square)):
             p = 0
             for row in square:
                 p += row[x]
-            if p != s:
-                return False
+            values.append(p)    
         #diagonals
-        #duplicates
+        x1, y1 = 0, 0
+        x2, y2 = len(square) -1, 0
+        d1, d2 = 0, 0
+        for _ in xrange(len(square)):
+            d1 += square[y1][x1]
+            d2 += square[y2][x2]
+            y1 += 1
+            x1 += 1
+            y2 += 1
+            x2 -= 1
+        values.append(d1)
+        values.append(d2)
+        
+        # All rows, cols and diagonals sums equal
+        if len(set(values)) != 1:
+            return False
+        
+        #no duplicates
+        l = [number for row in square for number in row]
+        if len(l) != len(set(l)):
+            return False
         
         return True
