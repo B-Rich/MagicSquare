@@ -1,7 +1,8 @@
 import unittest
 from magicsquare import MagicSquare as M
+from squares import CandidateSquare
 
-class TestUnitSquare(unittest.TestCase):
+class TestMagicSquare(unittest.TestCase):
     
     def setUp(self):
         pass
@@ -71,8 +72,7 @@ class TestUnitSquare(unittest.TestCase):
         self.assertFalse(M().testSemiMagic(t2))
         #semi-magic
         self.assertTrue(M().testSemiMagic(t3))
-        
     
         
-suite = unittest.TestLoader().loadTestsFromTestCase(TestUnitSquare)
+suite = unittest.TestLoader().loadTestsFromTestCase(TestMagicSquare)
 unittest.TextTestRunner(verbosity=4).run(suite)
