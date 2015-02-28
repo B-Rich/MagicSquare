@@ -1,28 +1,49 @@
 import random
+import statistics
+from errors import *
 
 class Square(object):
     def __init__(self, order):
         self.order = order
         self.square = []
         #Create empty square
-        for _ in xrange(self.order):
+        """
+        0,0 0,1 0,2
+        1,0 1,1 1,2
+        2,0 2,1 2,2
+        """
+        for _ in range(self.order):
             line = []
-            for _ in xrange(self.order):
+            for _ in range(self.order):
                 line.append(None)
             self.square.append(line)
         
     def printSquare(self):
+        """Print the square to the screen for humans
+        Return None
+        """
         for row in self.square:
             print(row)
+        return None
 
-class CandidateSquare(Square):
-    def __init__(self, order):
-        Square.__init__(self, order)
-        
-        for x in xrange(self.order):
-            for y in xrange(self.order):
+    def populateRandom(self):
+        """Populate the self.square with random numbers
+        Return None
+        """ 
+        for x in range(self.order):
+            for y in range(self.order):
                 self.square[y][x] = random.randrange(1, self.order**2)
+        return None
                 
+    def importSquare(self, square):
+        """Import a square to self.square
+        Return True or Raise DimError
+        """
+        if len(square) != len(self.square):
+            raise DimError('Imported square must be same order')
+        self.square = square
+        return True
+        
     def evaluateFitness(self):
         """evaluate the fitness of the candidate
         Return Float
@@ -33,7 +54,7 @@ class CandidateSquare(Square):
         for row in self.square:
             values.append(sum(row))
         #cols
-        for x in xrange(self.order):
+        for x in range(self.order):
             p = 0
             for row in self.square:
                 p += row[x]
@@ -42,7 +63,7 @@ class CandidateSquare(Square):
         x1, y1 = 0, 0
         x2, y2 = self.order -1, 0
         d1, d2 = 0, 0
-        for _ in xrange(self.order):
+        for _ in range(self.order):
             d1 += self.square[y1][x1]
             d2 += self.square[y2][x2]
             y1 += 1
@@ -52,9 +73,36 @@ class CandidateSquare(Square):
         values.append(d1)
         values.append(d2)
         
-        print values
-
+        print(values)
+        
+    def generateRowValues(self):
+        """Generate the row and col values 
+        {'row': {
+            (0,0): n,
+            (1,0): m },
+         'col': {
+             (0,0): n,
+             (0,1): m }
+        }
+        
+        Return Dict
+        """
+        rowvalues = {'row': {},
+                     'col': {}}
+        
+        # Rows
+        for i in range(self.order):
+            rowvalues['row'][(i,0)] = sum(self.square[i])
+            
+        # Cols
+        for i in range(self.order):
+            p = 0
+            for row in self.square:
+                p += row[i]
+            rowvalues['col'][(0,i)] = p
+        
+                
+        return rowvalues
+    
 if __name__ == '__main__':
-    A = CandidateSquare(3)
-    A.printSquare()
-    A.evaluateFitness()
+    pass

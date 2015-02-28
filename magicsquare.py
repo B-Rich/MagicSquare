@@ -31,18 +31,18 @@ class MagicSquare():
             
         #Create empty square
         square = []
-        for _ in xrange(dimension):
+        for _ in range(dimension):
             line = []
-            for _ in xrange(dimension):
+            for _ in range(dimension):
                 line.append(None)
             square.append(line)
             
         #Setup algorithm
         y = 0
-        x = dimension/2
+        x = dimension//2
         cur = initial
                 
-        for _ in xrange(dimension**2):
+        for _ in range(dimension**2):
             square[y][x] = cur
             cur += increment
             
@@ -79,7 +79,7 @@ class MagicSquare():
         for row in square:
             values.append(sum(row))
         #cols
-        for x in xrange(len(square)):
+        for x in range(len(square)):
             p = 0
             for row in square:
                 p += row[x]
@@ -93,7 +93,7 @@ class MagicSquare():
         x1, y1 = 0, 0
         x2, y2 = len(square) -1, 0
         d1, d2 = 0, 0
-        for _ in xrange(len(square)):
+        for _ in range(len(square)):
             d1 += square[y1][x1]
             d2 += square[y2][x2]
             y1 += 1
@@ -121,7 +121,7 @@ class MagicSquare():
         for row in square:
             values.append(sum(row))
         #cols
-        for x in xrange(len(square)):
+        for x in range(len(square)):
             p = 0
             for row in square:
                 p += row[x]
@@ -130,7 +130,7 @@ class MagicSquare():
         x1, y1 = 0, 0
         x2, y2 = len(square) -1, 0
         d1, d2 = 0, 0
-        for _ in xrange(len(square)):
+        for _ in range(len(square)):
             d1 += square[y1][x1]
             d2 += square[y2][x2]
             y1 += 1

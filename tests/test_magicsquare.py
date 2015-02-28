@@ -1,6 +1,5 @@
 import unittest
 from magicsquare import MagicSquare as M
-from squares import CandidateSquare
 
 class TestMagicSquare(unittest.TestCase):
     
