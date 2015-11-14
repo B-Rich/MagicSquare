@@ -20,10 +20,13 @@ class TestSquare(unittest.TestCase):
               'col': {(0,0): 33,
                       (0,1): 33,
                       (0,2): 33,
-                      (0,3): 33}
+                      (0,3): 33},
+              'dia': {(0,0): 33,
+                      (3,0): 33},
+              'dis': (33, 33, 33, 33, 33, 33, 33, 33, 33, 33)
               }
         
         self.assertEqual(s1.generateRowValues(), r1)
-        
+
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSquare)
 unittest.TextTestRunner(verbosity=4).run(suite)

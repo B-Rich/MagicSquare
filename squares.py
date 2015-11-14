@@ -29,7 +29,7 @@ class Square(object):
     def populateRandom(self):
         """Populate the self.square with random numbers
         Return None
-        """ 
+        """
         for x in range(self.order):
             for y in range(self.order):
                 self.square[y][x] = random.randrange(1, self.order**2)
@@ -76,32 +76,66 @@ class Square(object):
         print(values)
         
     def generateRowValues(self):
-        """Generate the row and col values 
+        """Generate values of line totals
+        row: Dict of Row totals indexed by left most position
+        col: Dict of Column totals indexed by top most position
+        dia: Dict of Diagonal  totals indexed by top corner positions
+        dis: Tuple of all line and diagonal totals
+        
         {'row': {
             (0,0): n,
             (1,0): m },
          'col': {
              (0,0): n,
-             (0,1): m }
+             (0,1): m },
+         'dia': {
+             (0,0): n,
+             (0,x): m},
+         'dis': (m,n,o,p,...)
         }
         
         Return Dict
         """
         rowvalues = {'row': {},
-                     'col': {}}
+                     'col': {},
+                     'dia': {},
+                     'dis': ()}
         
         # Rows
         for i in range(self.order):
             rowvalues['row'][(i,0)] = sum(self.square[i])
             
-        # Cols
+        # Columns
         for i in range(self.order):
             p = 0
             for row in self.square:
                 p += row[i]
             rowvalues['col'][(0,i)] = p
         
-                
+        # Diagonals
+        x1, y1 = 0, 0
+        x2, y2 = self.order - 1, 0
+        d1, d2 = 0, 0
+        for _ in range(self.order):
+            d1 += self.square[y1][x1]
+            d2 += self.square[y2][x2]
+            y1 += 1
+            x1 += 1
+            y2 += 1
+            x2 -= 1
+        rowvalues['dia'][(0,0)] = d1
+        rowvalues['dia'][(self.order - 1, 0)] = d2
+        
+        # Distribution
+        dis = []
+        for v in rowvalues['row'].values():
+            dis.append(v)
+        for v in rowvalues['col'].values():
+            dis.append(v)
+        for v in rowvalues['dia'].values():
+            dis.append(v)
+        rowvalues['dis'] = tuple(dis)
+        
         return rowvalues
     
 if __name__ == '__main__':
