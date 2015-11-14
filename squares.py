@@ -4,14 +4,25 @@ from errors import *
 
 class Square(object):
     def __init__(self, order):
-        self.order = order
-        self.square = []
-        #Create empty square
-        """
+        """A square object
+        
+        @param order: Integer - The order of the square
+        @rtype: List
+        
+        The Attribute "square" is a List
+        The positions in the square attribute are indexed using tuples i.e.
+        
         0,0 0,1 0,2
         1,0 1,1 1,2
         2,0 2,1 2,2
+        
+        An empty position contains the None object.
         """
+        
+        self.order = order
+        self.square = []
+        
+        #Create empty square
         for _ in range(self.order):
             line = []
             for _ in range(self.order):
