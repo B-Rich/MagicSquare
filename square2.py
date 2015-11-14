@@ -4,8 +4,8 @@ class Square2(list):
     def __init__(self, order, values=None):
         """A square object
         
-        
         @param order: Integer - The order of the square
+        @param values: Load given values into this object
         @rtype: List
         @summary: The square is a list of lists
         The positions in the square attribute are indexed using tuples i.e.
@@ -21,7 +21,7 @@ class Square2(list):
     def _hash_(self):
         """Create a hash of the square
         
-        @rtype: hash
+        @rtype: Int
         @summary: the hash of the square is the same when the square is simply
             rotated
         """
@@ -46,12 +46,13 @@ class Square2(list):
             raise Exception("order of square must match self")
         self.clear()
         self.extend(values)
+        return None
         
     def rotate(self):
-        """Rotate self by 90 degrees in the counter-clockwise direction.
+        """Rotate self in place by 90 degrees in the counter-clockwise direction.
         
-        @rtype: List
+        @rtype: None
         """
         self.load(list(zip(*self[::-1])))
-        return self
+        return None
         
