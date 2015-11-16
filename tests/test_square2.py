@@ -25,5 +25,22 @@ class TestSquare2(unittest.TestCase):
         test_obj_3.rotate()
         self.assertListEqual(test_obj_3, test_obj_3)
         
+    def test_populateRandom(self):
+        test_obj_3 = S2(3)
+        test_obj_3.populateRandom()
+        self.assertIs(type(test_obj_3[0]), list)
+        self.assertIs(type(test_obj_3[0][0]), int)
+        print(test_obj_3)
+        
+    def test_loadFlat(self):
+        flat_3 = [8,1,6,3,5,7,4,9,2]
+        magic_3 = [[8,1,6],[3,5,7],[4,9,2]]
+        test_obj_3 = S2(3)
+        test_obj_3f = S2(3)
+        test_obj_3.load(magic_3)
+        test_obj_3f.loadFlat(flat_3)
+        
+        self.assertListEqual(test_obj_3, test_obj_3f)
+        
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSquare2)
 unittest.TextTestRunner(verbosity=4).run(suite)

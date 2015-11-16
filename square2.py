@@ -1,4 +1,6 @@
 import numpy as np
+import random
+import math
 
 class Square2(list):
     def __init__(self, order, values=None):
@@ -38,14 +40,36 @@ class Square2(list):
     def load(self, values):
         """Load given values into this object
         
-        @param values: List
+        @param values: List of lists
         @requires: order of square must match self
+        @note: Order of values is compatible with loadFlat().
+            Here the values are already in lists
         @rtype: None
         """
-        if len(values) != self.order:
-            raise Exception("order of square must match self")
+        assert len(values) == self.order
+        
         self.clear()
         self.extend(values)
+        return None
+        
+    def loadFlat(self, values):
+        """Load given flat list of values into this object
+        
+        @param values: list of values
+        @requires: len(values) == self.order**2
+        @note: Order of values is compatible with load()
+        @rtype: None
+        """
+        assert len(values) == self.order**2
+        
+        self.clear()
+        values.reverse()
+        
+        for x in range(self.order):
+            sublist = []
+            for y in range(self.order):
+                sublist.append(values.pop())
+            self.append(sublist)
         return None
         
     def rotate(self):
@@ -56,3 +80,14 @@ class Square2(list):
         self.load(list(zip(*self[::-1])))
         return None
         
+    def populateRandom(self):
+        """Populate self with random numbers
+        
+        @note: This method is an ideal place to expand on later, trying out the effectivness
+        of square generation starting with different distributions of random 
+        numbers
+        
+        @rtype: None
+        """
+        self.loadFlat(random.sample(range(int(math.ceil(self.order**math.e))), self.order**2))
+        return None
