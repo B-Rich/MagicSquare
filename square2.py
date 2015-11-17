@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import math
+from collections import namedtuple
 
 class Square2(list):
     def __init__(self, order, values=None):
@@ -91,3 +92,49 @@ class Square2(list):
         """
         self.loadFlat(random.sample(range(int(math.ceil(self.order**math.e))), self.order**2))
         return None
+    
+    def getTotals(self):
+        """Get the totals of the rows, cols and diagonals
+        
+        @requires: self.isEmpty() is False
+        @rtype: namedtuple
+        """
+        assert self.isEmpty() is False
+        
+        Totals = namedtuple("Totals", ["row", "col", "dia"])
+        
+        row = []
+        for i in range(self.order):
+            row.append(sum(self[i]))
+        row = tuple(row)
+        
+        col = []
+        for i in range(self.order):
+            col.append(sum([c[i] for c in self]))
+        col = tuple(col)
+        
+        dia_right = []
+        j = 0
+        for i in range(self.order):
+            dia_right.append(self[i][j])
+            j += 1
+        dia_left = []
+        j = self.order - 1
+        for i in range(self.order):
+            dia_left.append(self[i][j])
+            j -= 1
+        dia = (sum(dia_right), sum(dia_left))
+        
+        return Totals(row, col, dia)
+        
+            
+    def isEmpty(self):
+        """Query if self has values loaded
+        
+        @rtype: bool
+        """
+        if self == []:
+            return True
+        else:
+            return False
+        
