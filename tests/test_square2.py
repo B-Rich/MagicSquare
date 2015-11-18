@@ -13,10 +13,22 @@ class TestSquare2(unittest.TestCase):
         self.assertListEqual(test_obj_3, magic_3)
         
     def test__hash_(self):
+        # Rotation
         test_obj_3 = S2(3, [[8,1,6],[3,5,7],[4,9,2]])
-        test_obj_3_r = S2(3, [[4,3,8],[9,5,1],[2,7,6]])
-        self.assertEqual(test_obj_3._hash_(), test_obj_3_r._hash_())
-        
+        test_obj_3_rotated = S2(3, [[4,3,8],[9,5,1],[2,7,6]])
+        self.assertEqual(test_obj_3._hash_(), test_obj_3_rotated._hash_())
+        # Reflection
+        test_obj_3_reflected = S2(3, [[4,9,2],[3,5,7],[8,1,6]])
+        test_obj_3_reflected_dia = S2(3, [[6,7,2],[1,5,7],[8,3,4]])
+        self.assertEqual(test_obj_3._hash_(),
+                         test_obj_3_reflected._hash_())
+        self.assertEqual(test_obj_3._hash_(),
+                         test_obj_3_reflected_dia._hash_())
+        self.assertEqual(test_obj_3_rotated._hash_(),
+                         test_obj_3_reflected._hash_())
+        self.assertEqual(test_obj_3_reflected_dia._hash_(),
+                         test_obj_3_reflected._hash_())
+               
     def test_rotate(self):
         test_obj_3 = S2(3, [[8,1,6],[3,5,7],[4,9,2]])
         test_obj_3_r = S2(3, [[4,3,8],[9,5,1],[2,7,6]])
