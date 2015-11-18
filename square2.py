@@ -138,3 +138,41 @@ class Square2(list):
         else:
             return False
         
+    def isMagic(self):
+        """Query if self is magic
+        
+        @requires: self.isEmpty() is False
+        @rtype: bool
+        """
+        assert self.isEmpty() is False
+        
+        totals = self.getTotals()
+        n = totals.row[0]
+        for i in totals.row:
+            if i != n:
+                return False
+        for i in totals.col:
+            if i != n:
+                return False
+        for i in totals.dia:
+            if i != n:
+                return False
+        return True
+    
+    def isSemiMagic(self):
+        """Query if self is semi-magic
+        
+        @requires: self.isEmpty() is False
+        @rtype: bool
+        """
+        assert self.isEmpty() is False
+        
+        totals = self.getTotals()
+        n = totals.row[0]
+        for i in totals.row:
+            if i != n:
+                return False
+        for i in totals.col:
+            if i != n:
+                return False
+        return True

@@ -51,6 +51,21 @@ class TestSquare2(unittest.TestCase):
         self.assertTrue(magic_4.isEmpty())
         self.assertFalse(magic_3.isEmpty())
         
+    def test_isMagic(self):
+        magic = S2(3, [[8,1,6],[3,5,7],[4,9,2]])
+        non_m = S2(3, [[8,1,12],[3,5,7],[4,9,2]])
+        semi  = S2(3, [[1,5,9],[6,7,2],[8,3,4]])
+        self.assertTrue(magic.isMagic())
+        self.assertFalse(non_m.isMagic())
+        
+    def test_isMagic(self):
+        magic = S2(3, [[8,1,6],[3,5,7],[4,9,2]])
+        non_m = S2(3, [[8,1,12],[3,5,7],[4,9,2]])
+        semi  = S2(3, [[1,5,9],[6,7,2],[8,3,4]])
+        self.assertTrue(magic.isSemiMagic())
+        self.assertFalse(non_m.isSemiMagic())
+        self.assertTrue(semi.isSemiMagic())
+        
         
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSquare2)
 unittest.TextTestRunner(verbosity=4).run(suite)
