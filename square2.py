@@ -218,3 +218,19 @@ class Square2(list):
         
         self.load(newlist)
         return None
+    
+    def reflectL(self):
+        """Reflect the square in place through the l-axis
+        l-axis is from top right to bottom left
+        
+        @requires: self.isEmpty() is False
+        @rtype: None
+        """
+        assert self.isEmpty() is False
+        
+        self.reflectY()
+        self.reflectR()
+        self.reflectY()
+        return None
+        
+        

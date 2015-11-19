@@ -109,5 +109,15 @@ class TestSquare2(unittest.TestCase):
         test_4.reflectR()
         self.assertListEqual(test_4, test_4_reflectr)
         
+    def test_reflectL(self):
+        test_3 = S2(3, [[8,1,6],[3,5,7],[4,9,2]])
+        test_3_reflectl = S2(3, [[2,7,6],[9,5,1],[4,3,8]])
+        test_3.reflectL()
+        self.assertListEqual(test_3, test_3_reflectl)
+        test_4 = S2(4, [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
+        test_4_reflectl = S2(4, [[16,12,8 ,4 ],[15,11,7 ,3 ],[14,10,6 ,2 ],[13, 9,5 ,1]])
+        test_4.reflectL()
+        self.assertListEqual(test_4, test_4_reflectl)
+        
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSquare2)
 unittest.TextTestRunner(verbosity=4).run(suite)
