@@ -28,14 +28,9 @@ class Square2(list):
         @note: Hash is the same when the square is rotated
         @note: Hash is the same when dias, rows or columns are reflected
         """
-
-        # find smallest value in a corner
-        mincorner = min([self[0][0], self[0][-1], self[-1][0], self[-1][-1]])
-        # rotate until smallest corner is top left, then take hash
-        for _ in range(4):
-            if self[0][0] == mincorner:
-                hash_value =  hash(tuple([item for sublist in self for item in sublist]))
-            self.rotate()
+        self.orient()              
+        hash_value =  hash(tuple([item for sublist in self for item in sublist]))
+        
         return hash_value
        
     def load(self, values):
@@ -267,5 +262,4 @@ class Square2(list):
         if  self[0][0] > self[0][self.order - 1]:
             self.reflectY()
         return None
-        
         
