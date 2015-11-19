@@ -183,3 +183,16 @@ class Square2(list):
         assert self.isEmpty() is False
         
         self.reverse()
+        return None
+        
+    def reflectY(self):
+        """Reflect the square in place through the center of the y-axis
+        
+        @requires: self.isEmpty() is False
+        @rtype: None
+        """
+        assert self.isEmpty() is False
+        
+        for l in self:
+            l.reverse()
+        return None
