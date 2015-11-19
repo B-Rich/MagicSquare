@@ -196,3 +196,25 @@ class Square2(list):
         for l in self:
             l.reverse()
         return None
+    
+    def reflectR(self):
+        """Reflect the square in place through the r-axis
+        r-axis is from top left to bottom right
+        
+        @requires: self.isEmpty() is False
+        @rtype: None
+        """
+        assert self.isEmpty() is False
+        
+        newlist = []
+        for i in range(self.order):
+            newlist.append([])
+            for j in range(self.order):
+                newlist[i].append(None)
+        
+        for i in range(self.order):
+            for j in range(self.order):
+                newlist[i][j] = self[j][i]
+        
+        self.load(newlist)
+        return None
