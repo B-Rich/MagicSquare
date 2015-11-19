@@ -140,5 +140,9 @@ class TestSquare2(unittest.TestCase):
         test_obj.orient()
         self.assertTrue(test_obj.isOriented())
         
+    def repairLines(self):
+        magic_1 = [[8,1,6],[3,5,7],[4,9,2]]
+        non_1 = [[8,1,6],[3,5,7],[4,9,10]]
+        
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSquare2)
 unittest.TextTestRunner(verbosity=4).run(suite)
