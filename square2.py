@@ -28,6 +28,7 @@ class Square2(list):
         @note: Hash is the same when the square is rotated
         @note: Hash is the same when dias, rows or columns are reflected
         """
+
         # find smallest value in a corner
         mincorner = min([self[0][0], self[0][-1], self[-1][0], self[-1][-1]])
         # rotate until smallest corner is top left, then take hash
@@ -35,7 +36,6 @@ class Square2(list):
             if self[0][0] == mincorner:
                 hash_value =  hash(tuple([item for sublist in self for item in sublist]))
             self.rotate()
-        
         return hash_value
        
     def load(self, values):
@@ -231,6 +231,41 @@ class Square2(list):
         self.reflectY()
         self.reflectR()
         self.reflectY()
+        return None
+        
+    def isOriented(self):
+        """Test if square is oriented for hashing
+        Corners opposite each other do not change relative to each other for 
+        any of the transforms. The square is oriented when both corners at the 
+        top are smaller than thier diagonal opposites, with the smaller of the 
+        two top corners being on the left.
+        
+        @requires: self.isEmpty() is False
+        @rtype: bool
+        """
+        assert self.isEmpty() is False
+        
+        if ((self[0][0] < self[0][self.order - 1]) and
+            (self[0][0] < self[self.order - 1][self.order - 1]) and
+            self[0][self.order - 1] < self[self.order - 1][0]):
+            return True
+        else:
+            return False
+
+    def orient(self):
+        """Orient square in place for hashing
+        
+        @requires: self.isEmpty() is False
+        @rtype: None
+        """
+        assert self.isEmpty() is False
+        
+        if self[0][0] > self[self.order - 1][self.order - 1]:
+            self.reflectL()
+        if self[0][self.order - 1] > self[self.order - 1][0]:
+            self.reflectR()
+        if  self[0][0] > self[0][self.order - 1]:
+            self.reflectY()
         return None
         
         

@@ -119,5 +119,23 @@ class TestSquare2(unittest.TestCase):
         test_4.reflectL()
         self.assertListEqual(test_4, test_4_reflectl)
         
+    def test_isOriented(self):
+        non_1 = S2(3, [[8,1,6],[3,5,7],[4,9,2]])
+        non_2 = S2(3, [[2,8,1],[3,5,7],[6,9,4]])
+        yes_1 = S2(3, [[1,8,2],[3,5,7],[6,9,4]])
+        yes_2 = S2(3, [[2, 9, 4],
+                       [7, 5, 3],
+                       [6, 1, 8]])
+        self.assertTrue(yes_1.isOriented())
+        self.assertTrue(yes_2.isOriented())
+        self.assertFalse(non_1.isOriented())
+        self.assertFalse(non_2.isOriented())
+      
+    def test_orient(self):
+        test_obj = S2(3, [[8,1,6],[3,5,7],[4,9,2]])
+        self.assertFalse(test_obj.isOriented())
+        test_obj.orient()
+        self.assertTrue(test_obj.isOriented())
+        
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSquare2)
 unittest.TextTestRunner(verbosity=4).run(suite)
