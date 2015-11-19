@@ -25,8 +25,8 @@ class Square2(list):
         """Create a hash of the square
         
         @rtype: Int
-        @summary: the hash of the square is the same when the square is simply
-            rotated
+        @note: Hash is the same when the square is rotated
+        @note: Hash is the same when dias, rows or columns are reflected
         """
         # find smallest value in a corner
         mincorner = min([self[0][0], self[0][-1], self[-1][0], self[-1][-1]])
@@ -104,25 +104,22 @@ class Square2(list):
         Totals = namedtuple("Totals", ["row", "col", "dia"])
         
         row = []
+        col = []
+        dia_right = []
+        dia_left = []
+        j = 0
+        k = self.order - 1
+        
         for i in range(self.order):
             row.append(sum(self[i]))
-        row = tuple(row)
-        
-        col = []
-        for i in range(self.order):
             col.append(sum([c[i] for c in self]))
-        col = tuple(col)
-        
-        dia_right = []
-        j = 0
-        for i in range(self.order):
             dia_right.append(self[i][j])
             j += 1
-        dia_left = []
-        j = self.order - 1
-        for i in range(self.order):
-            dia_left.append(self[i][j])
-            j -= 1
+            dia_left.append(self[i][k])
+            k -= 1
+            
+        row = tuple(row)
+        col = tuple(col)
         dia = (sum(dia_right), sum(dia_left))
         
         return Totals(row, col, dia)
@@ -176,3 +173,13 @@ class Square2(list):
             if i != n:
                 return False
         return True
+    
+    def reflectX(self):
+        """Reflect the square in place through the center of the x-axis
+        
+        @requires: self.isEmpty() is False
+        @rtype: None
+        """
+        assert self.isEmpty() is False
+        
+        self.reverse()
