@@ -140,9 +140,25 @@ class TestSquare2(unittest.TestCase):
         test_obj.orient()
         self.assertTrue(test_obj.isOriented())
         
-    def repairLines(self):
-        magic_1 = [[8,1,6],[3,5,7],[4,9,2]]
-        non_1 = [[8,1,6],[3,5,7],[4,9,10]]
+    @unittest.skip
+    def test_repair(self):
+        non_1 = S2(3, [[8,1,6],
+                       [3,5,7],
+                       [4,9,10]])
+        self.assertFalse(non_1.isMagic())
+        non_1.repair()
+        self.assertTrue(non_1.isMagic())
         
+    def test_evaluateFitness(self):
+        yes_1 = S2(3, [[8,1,6],
+                       [3,5,7],
+                       [4,9,2]])
+        non_1 = S2(3, [[8,1,6],
+                       [3,5,7],
+                       [4,9,10]])
+        self.assertGreaterEqual(yes_1.evaluateFitness(), 0)
+        self.assertGreater(yes_1.evaluateFitness(), non_1.evaluateFitness())
+        
+
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSquare2)
 unittest.TextTestRunner(verbosity=4).run(suite)
